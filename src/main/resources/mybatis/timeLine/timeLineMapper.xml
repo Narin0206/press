@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="springboot_press.dao.TimeLineDAO">
+  	<select id="selectAll" resultType="Press_infoDTO">
+  		SELECT *
+  		FROM Press_info
+  	</select>
+  	
+   	<select id="selectOne" parameterType="String" resultType="Press_infoDTO">
+  		SELECT Press_info.date, Press_info.title
+		FROM Press_info
+		INNER JOIN id Speaker_list
+		ON Press_list.id = Speaker_list.id
+  	</select> 
+  </mapper>
