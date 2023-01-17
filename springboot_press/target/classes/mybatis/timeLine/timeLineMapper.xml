@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="springboot_press.dao.TimeLineDAO">
+	
+   	<select id="selectAll" parameterType="String" resultType="Press_infoDTO">
+  		SELECT * FROM press_info
+  		press_info as p speaker_list as s
+  		WHERE p.id = s.id
+  		WHERE date BETWEEN DATE #{from_date} AND DATE #{to_date}
+  	</select> 
+  </mapper>
