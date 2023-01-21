@@ -15,8 +15,10 @@ import lombok.NoArgsConstructor;
 public class Speaker_listDTO {
 	@Id
 	private int id;
+	private String date;
 	private String name;
 	private String party;
 	private int press_id;
+	private String title;
 
 }

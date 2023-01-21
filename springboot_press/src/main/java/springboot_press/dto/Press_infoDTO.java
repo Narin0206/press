@@ -16,7 +16,6 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Press_infoDTO {
 	@Id
-	@JoinColumn
 	private int id;
 	private String date;
 	private String time;

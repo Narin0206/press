@@ -14,9 +14,13 @@ public class TimeLineService {
 	@Autowired
 	private TimeLineDAO dao;
 	
+	public List<Press_infoDTO> selectAll(){
+		return dao.selectAll();
+	}
+	
 
-	public List<Press_infoDTO> selectAll(String from_date, String to_date, String name, String party){
-		return dao.selectAll(from_date, to_date, name, party);
+	public List<Press_infoDTO> selectOne(String from_date, String to_date, String name, String party){
+		return dao.selectOne(from_date, to_date, name, party);
 	}
 
 }

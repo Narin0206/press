@@ -11,5 +11,6 @@ import springboot_press.dto.Press_infoDTO;
 @Mapper
 public interface TimeLineDAO {
 
-	List<Press_infoDTO> selectAll(String from_date, String to_date, String name, String party);
+	List<Press_infoDTO> selectAll();
+	List<Press_infoDTO> selectOne(String from_date, String to_date, String name, String party);
 }

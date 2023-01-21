@@ -2,13 +2,31 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-  <mapper namespace="springboot_press.dao.TimeLineDAO">
-	
-   	<select id="selectAll" parameterType="String" resultType="Press_infoDTO">
-  		SELECT * FROM press_info
-  		press_info as p speaker_list as s
-  		WHERE p.id = s.id
-  		WHERE date BETWEEN DATE #{from_date} AND DATE #{to_date}
-  	</select> 
-  </mapper>
+
+<mapper namespace="springboot_press.dao.TimeLineDAO">
+
+	<select id="selectAll" resultType="Press_infoDTO">
+		select * from press_info
+	</select>
+
+	<select id="selectOne" parameterType="String" resultType="speaker_listDTO">
+		SELECT S.id,P.date,S.name,S.party,P.title
+		FROM speaker_list S
+		INNER JOIN press_info P
+		ON S.press_id=P.id where 1=1
+
+		<if test="from_date !=''">
+			and P.date>=#{from_date}
+		</if>
+		<if test="to_date !=''">
+			AND P.date &lt;= #{to_date}
+		</if>
+		<if test="name !=''">
+			and S.name like #{name}
+		</if>
+		<if test="party !=''">
+			and S.party like CONCAT('%',#{party},'%')
+		</if>
+		order by P.date asc limit 100
+	</select>
+</mapper>

@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <link rel="stylesheet"
@@ -11,7 +12,6 @@
 </head>
 <body>
 	<div class="card">
-	<form action="list" method="get">
 		<div class="card-header">기자회견 조회하기</div>
 		<div class="card-body">
 			<form>
@@ -34,7 +34,7 @@
 								placeholder="정당명">
 						</div>
 						<div class="col">
-							<button type="submit" class="btn btn-primary">조회</button>
+							<button type="submit" id="button" class="btn btn-primary">조회</button>
 						</div>
 					</div>
 				</div>
@@ -52,5 +52,50 @@
 -->
 		<div id="timeline"></div>
 	</div>
+	
 </body>
 </html>
+<script>
+$("#button").click(
+        function getMemberList(e) {
+            var data = {
+                from_date: $('#from_date').val(),
+                to_date: $('#to_date').val(),
+                name: $('#name').val(),
+                party: $('#party').val()
+            };
+        $.ajax({
+            type: "GET",
+            data: data,
+            url: "/result",
+            dataType: "html",
+            async: true,
+            success: function(result) {
+            	result = JSON.parse(result);
+            	$(document).ready( function() {
+                    $('#timeline').height(result.length*40);
+                  });
+            	/*for(let i=0; i<result.length;i++){
+            		result[i]["year"] = result[i]["date"].split('-')[0];
+            	} */
+            	milestones('#timeline')
+                .mapping({
+                  'timestamp': 'date',
+                  'text': 'title'
+                })
+                .parseTime('%Y-%m-%d')
+                .optimize(true)
+                .distribution('top-bottom')
+                .aggregateBy('day')
+                //.autoResize(true)
+                .orientation('vertical')
+                .render(result);
+            }
+        })
+        e.preventDefault(); //버튼눌러서 링크이동할때 새로이동되는거 막아주는
+        return false;
+    });
+            	
+           
+  
+</script>
